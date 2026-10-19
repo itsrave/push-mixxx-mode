@@ -63,6 +63,8 @@ PUSH3.BTN_DIM = 12;
 
 // feel knobs, tune on the device.
 PUSH3.NUDGE = 1;      // jog value per encoder tick when nudging
+PUSH3.TEMPO_STEP = 0.006;
+PUSH3.TEMPO_FINE = 0.0002;
 // Shift + jog = pull-up: holds the record and moves it (mixxx scratch), on
 // a playing deck too. ticks per virtual record turn (33 1/3 rpm, 1.8 s of
 // audio): fewer = each tick moves further. let go (no tick for
@@ -324,9 +326,13 @@ PUSH3.init = function() {
     });
 
     // beatmatch: tempo wheel = master deck tempo (press = original tempo),
+    // shift + tempo wheel = fine steps
+    PUSH3.onCC(C.tempoTurn, function(v) {
+        var step = PUSH3.shiftDown ? PUSH3.TEMPO_FINE : PUSH3.TEMPO_STEP;
+        PUSH3.nudge(PUSH3.decks[PUSH3.master], "rate", -PUSH3.rel(v), step);
+    });
     // volume wheel above it nudges deck 1, big jog nudges deck 2 (scrolls
     // the library while it is open). bottom button 3 swaps the master.
-    PUSH3.onCC(C.tempoTurn, function(v) { PUSH3.nudge(PUSH3.decks[PUSH3.master], "rate", PUSH3.rel(v), 0.002); });
     PUSH3.onPress(C.tempoPress, function() { engine.setValue(PUSH3.decks[PUSH3.master], "rate_set_zero", 1); });
     PUSH3.onCC(C.volTurn, function(v) { PUSH3.jog(PUSH3.decks[0], PUSH3.rel(v)); });
     PUSH3.onPress(C.botFirst + 2, function() { PUSH3.setMaster(1 - PUSH3.master); });
