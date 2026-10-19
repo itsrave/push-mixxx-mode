@@ -27,6 +27,7 @@ func main() {
 		log.Fatalf("config: %v", err)
 	}
 	b := newBridge(dir)
+	go watchPushManager() // log when push-manager (screen) is missing
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", httpx.ServeEmbedded(ui, "index.html"))

@@ -4,7 +4,6 @@
   "description": "DJ with Mixxx on Push 3. Switching to Mixxx mode stops Push3 and Live, starts Mixxx on the Push's own audio outputs and maps two decks to the pads, buttons and encoders. Hold SETTINGS to go back to Push mode. REQUIRES push-manager (it drives the screen while Push3 is stopped).",
   "version": "0.1.0",
   "author": "itsrave",
-  "port": 7720,
   "binary": "mixxx-bridge",
   "enabled": true,
   "allowed_roots": [],
