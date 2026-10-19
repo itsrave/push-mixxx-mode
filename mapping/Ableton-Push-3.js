@@ -326,7 +326,7 @@ PUSH3.init = function() {
     // beatmatch: tempo wheel = master deck tempo (press = original tempo),
     // volume wheel above it nudges deck 1, big jog nudges deck 2 (scrolls
     // the library while it is open). bottom button 3 swaps the master.
-    PUSH3.onCC(C.tempoTurn, function(v) { PUSH3.nudge(PUSH3.decks[PUSH3.master], "rate", PUSH3.rel(v), 0.002); });
+    PUSH3.onCC(C.tempoTurn, function(v) { PUSH3.nudge(PUSH3.decks[PUSH3.master], "rate", -PUSH3.rel(v), 0.002); });
     PUSH3.onPress(C.tempoPress, function() { engine.setValue(PUSH3.decks[PUSH3.master], "rate_set_zero", 1); });
     PUSH3.onCC(C.volTurn, function(v) { PUSH3.jog(PUSH3.decks[0], PUSH3.rel(v)); });
     PUSH3.onPress(C.botFirst + 2, function() { PUSH3.setMaster(1 - PUSH3.master); });
